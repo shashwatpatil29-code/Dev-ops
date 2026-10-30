@@ -1,0 +1,32 @@
+# ---------------------------------------------------------------------------
+# Used by the Jenkins pipeline. It does NOT rebuild the code – it wraps the exact
+# WAR that passed unit + Selenium tests in the earlier stages ("build once, ship that").
+# Requires target/fuel-tracker.war to exist (./mvnw package).
+# ---------------------------------------------------------------------------
+FROM eclipse-temurin:17-jre-jammy
+
+ARG APP_VERSION=dev
+ARG GIT_COMMIT=unknown
+LABEL org.opencontainers.image.title="Vehicle Fuel Expense Tracker" \
+      org.opencontainers.image.version="${APP_VERSION}" \
+      org.opencontainers.image.revision="${GIT_COMMIT}"
+
+RUN apt-get update && apt-get install -y --no-install-recommends curl \
+    && rm -rf /var/lib/apt/lists/* \
+    && groupadd --system --gid 10001 app && useradd --system --uid 10001 --gid app --home /app app \
+    && mkdir -p /app/data && chown -R app:app /app
+
+WORKDIR /app
+COPY --chown=app:app target/fuel-tracker.war /app/app.war
+
+USER app
+ENV APP_ENV=docker \
+    DB_URL=jdbc:h2:file:/app/data/fueltracker \
+    JAVA_OPTS="-Xms128m -Xmx384m"
+EXPOSE 8080
+VOLUME /app/data
+
+HEALTHCHECK --interval=15s --timeout=3s --start-period=40s --retries=3 \
+  CMD curl -fs http://localhost:8080/actuator/health | grep -q '"status":"UP"' || exit 1
+
+ENTRYPOINT ["sh", "-c", "exec java $JAVA_OPTS -jar /app/app.war"]

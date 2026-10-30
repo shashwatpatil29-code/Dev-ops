@@ -1,0 +1,20 @@
+# Quickest way to run the app with nothing but Docker installed:
+#   docker compose up -d --build      → http://localhost:8080
+#   docker compose logs -f app
+#   docker compose down               (add -v to wipe the database volume)
+services:
+  app:
+    build: .
+    image: fuel-tracker:local
+    container_name: fuel-tracker
+    ports:
+      - "8080:8080"
+    environment:
+      APP_ENV: compose
+      SEED_DEMO_DATA: "true"
+    volumes:
+      - fuel-data:/app/data
+    restart: unless-stopped
+
+volumes:
+  fuel-data:

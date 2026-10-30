@@ -1,0 +1,10 @@
+.git
+.idea
+.vscode
+*.iml
+data/
+docs/
+infra/
+evidence/
+target/
+!target/fuel-tracker.war

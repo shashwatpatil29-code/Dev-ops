@@ -1,0 +1,83 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (malloc) failed to allocate 32744 bytes. Error detail: ChunkPool::allocate
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   This process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+#   JVM is running with Unscaled Compressed Oops mode in which the Java heap is
+#     placed in the first 4GB address space. The Java Heap base address is the
+#     maximum limit for the native heap growth. Please use -XX:HeapBaseMinAddress
+#     to set the Java Heap base and to place the Java Heap above 4GB virtual address.
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (arena.cpp:79), pid=14576, tid=9464
+#
+# JRE version: OpenJDK Runtime Environment Temurin-17.0.20.1+1 (17.0.20.1+1) (build 17.0.20.1+1)
+# Java VM: OpenJDK 64-Bit Server VM Temurin-17.0.20.1+1 (17.0.20.1+1, mixed mode, emulated-client, sharing, tiered, compressed oops, compressed class ptrs, g1 gc, windows-amd64)
+# No core dump will be written. Minidumps are not enabled by default on client versions of Windows
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -Xms64m -Xmx256m -XX:MaxMetaspaceSize=128m -XX:TieredStopAtLevel=1 com.fueltracker.FuelTrackerApplication
+
+Host: Intel(R) Core(TM) i3-10110U CPU @ 2.10GHz, 4 cores, 7G,  Windows 11 , 64 bit Build 26100 (10.0.26100.9444)
+Time: Thu Oct 29 14:49:24 2026 India Standard Time elapsed time: 105.923438 seconds (0d 0h 1m 45s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00000138f112f0a0):  JavaThread "C1 CompilerThread0" daemon [_thread_in_vm, id=9464, stack(0x0000001eab100000,0x0000001eab200000)]
+
+
+Current CompileTask:
+C1:105923 7242       1       org.thymeleaf.engine.TemplateModelController::increaseModelLevel (155 bytes)
+
+Stack: [0x0000001eab100000,0x0000001eab200000]
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [jvm.dll+0x684d39]
+V  [jvm.dll+0x83a565]
+V  [jvm.dll+0x83bfde]
+V  [jvm.dll+0x83c663]
+V  [jvm.dll+0x2490cf]
+V  [jvm.dll+0xad73e]
+V  [jvm.dll+0xadbdc]
+V  [jvm.dll+0x1d4d4b]
+V  [jvm.dll+0x1c1ff5]
+V  [jvm.dll+0x2298fa]
+V  [jvm.dll+0x227c1b]
+V  [jvm.dll+0x7f0d18]
+V  [jvm.dll+0x7eb17c]
+V  [jvm.dll+0x683c07]
+C  [ucrtbase.dll+0x2cd30]
+C  [KERNEL32.DLL+0x2cd87]
+C  [ntdll.dll+0xacaec]
+
+
+---------------  P R O C E S S  ---------------
+
+Threads class SMR info:
+_java_thread_list=0x00000138f79272f0, length=34, elements={
+0x00000138dba8ca10, 0x00000138dba8e050, 0x00000138f1127320, 0x00000138f1127bf0,
+0x00000138f112a7e0, 0x00000138f112b0b0, 0x00000138f112f0a0, 0x00000138f112cc90,
+0x00000138f1371e50, 0x00000138f1376790, 0x00000138f676f970, 0x00000138f676fe50,
+0x00000138f676d2e0, 0x00000138f692ef90, 0x00000138f692f880, 0x00000138f667aa00,
+0x00000138f667c350, 0x00000138f667b930, 0x00000138f667b420, 0x00000138f78cbe20,
+0x00000138f78c9fc0, 0x00000138f78c9090, 0x00000138f78ca4d0, 0x00000138f78ccd50,
+0x00000138f78cd260, 0x00000138f78c9ab0, 0x00000138f78cb400, 0x00000138f78cc840,
+0x00000138f78cd770, 0x00000138f78cc330, 0x00000138f78cdc80, 0x00000138f78caef0,
+0x00000138f6de35f0, 0x00000138f6de3b40
+}
+
+Java Threads: ( => current thread )
+  0x00000138dba8ca10 JavaThread "Reference Handler" daemon [_thread_blocked, id=4728, stack(0x0000001eaab00000,0x0000001eaac00000)]
+  0x00000138dba8e050 JavaThread "Finalizer" daemon [_thread_blocked, id=14388, stack(0x0000001eaac00000,0x0000001eaad00000)]
+  0x00000138f1127320 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=4328, stack(0x0000001eaad00000,0x0000001eaae00000)]
+  0x00000138f1127bf0  daemon [_thread_blocked]

@@ -1,0 +1,4 @@
+# keep shell scripts and mvnw runnable when the repo is cloned on Windows
+*.sh   text eol=lf
+mvnw   text eol=lf
+*.cmd  text eol=crlf
